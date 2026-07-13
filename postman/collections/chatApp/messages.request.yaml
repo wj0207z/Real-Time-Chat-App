@@ -1,0 +1,18 @@
+$kind: http-request
+name: messages
+url: http://localhost:5001/api/messages
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "roomId": "6a54a1cf378b3e84ce48dfda",
+      "content": "Hello everyone!"
+    }
+auth:
+  type: bearer
+  credentials:
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNTNkMDE1ZmU3NzJlZDQ5NjY1ZTBhOCIsImlhdCI6MTc4MzkzMTE4NCwiZXhwIjoxNzg0NTM1OTg0fQ.THRcW7nb91nlLc2rXMGcqU0J6mO8ygR29jvwUfCmSOk
+order: 4196562442879878
