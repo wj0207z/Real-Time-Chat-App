@@ -1,9 +1,8 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../api/axios";
 
 function Login() {
-
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -25,52 +24,51 @@ function Login() {
         setError("");
 
         try {
-            const response = await axios.post("/api/auth/login", form);
+            const response = await api.post("/auth/login", form);
 
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("user", JSON.stringify(response.data.user));
 
             navigate("/chat");
         } catch (error) {
-            setError("Login failed. Invalid email or password");
+            setError("Login failed. Invalid email or password.");
         }
     }
 
     return (
         <main>
-            <h1>Login</h1>
-            
-            {error && <p>{error}</p>}
+            <section className="auth-card">
+                <h1>Login</h1>
+                <p>Welcome back to your chat workspace.</p>
 
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                />
+                {error && <div className="auth-error">{error}</div>}
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={form.password}
-                    onChange={handleChange}
-                    required
-                />
-    
-                <button type="submit">Login</button>
-            </form>
+                <form className="auth-form" onSubmit={handleSubmit}>
+                    <input
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        value={form.email}
+                        onChange={handleChange}
+                    />
 
-            <p>
-                Don't have an account? <Link to="/register">Register</Link>
-            </p>
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        value={form.password}
+                        onChange={handleChange}
+                    />
+
+                    <button type="submit">Login</button>
+                </form>
+
+                <p className="auth-footer">
+                    New here? <Link to="/register">Register now</Link>
+                </p>
+            </section>
         </main>
     );
 }
 
 export default Login;
-
-

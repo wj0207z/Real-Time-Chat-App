@@ -6,7 +6,7 @@ function Register() {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        username: "",
+        name: "",
         email: "",
         password: "",
     });
@@ -38,44 +38,43 @@ function Register() {
 
     return (
         <main>
-            <h1>Register</h1>
+            <section className="auth-card">
+                <h1>Register</h1>
+                <p>Create an account to start chatting.</p>
 
-            {error && <p>{error}</p>}
+                {error && <div className="auth-error">{error}</div>}
 
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                />
+                <form className="auth-form" onSubmit={handleSubmit}>
+                    <input
+                        name="name"
+                        placeholder="Name"
+                        value={form.name}
+                        onChange={handleChange}
+                    />
 
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                />
+                    <input
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        value={form.email}
+                        onChange={handleChange}
+                    />
 
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={form.password}
-                    onChange={handleChange}
-                    required
-                />
+                    <input
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        value={form.password}
+                        onChange={handleChange}
+                    />
 
-                <button type="submit">Register</button>
-            </form>
+                    <button type="submit">Register</button>
+                </form>
 
-            <p>
-                Already have an account? <Link to="/login">Login here</Link>.
-            </p>
+                <p className="auth-footer">
+                    Already have an account? <Link to="/login">Login</Link>
+                </p>
+            </section>
         </main>
     );
 }
