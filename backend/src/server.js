@@ -42,9 +42,15 @@ io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
 
     //lets the user join a specific chat room
-    socket.on("join_room", (roomId) => {
-        socket.join(roomId);
-        console.log(`User ${socket.id} joined room ${roomId}`);
+    //backend will leave old room and join new room
+    socket.on("join_room", ({ roomId, previousRoomId }) => {
+    if (previousRoomId) {
+        socket.leave(previousRoomId);
+        console.log(`User ${socket.id} left room ${previousRoomId}`);
+    }
+
+    socket.join(roomId);
+    console.log(`User ${socket.id} joined room ${roomId}`);
     });
 
     //broadcasts the message to all users in the room
